@@ -1,0 +1,81 @@
+# 配置文件示例
+# 复制此文件为 application-local.yml 并填入实际值
+# 或在启动时通过环境变量传递配置
+
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+  mail:
+    host: smtp.163.com
+    username: your-email@163.com
+    password: your-email-password
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/discord?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+      username: root
+      password: your-mysql-password
+      initial-size: 1
+
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: your-redis-password  # 如果Redis无密码，留空
+    lettuce:
+      pool:
+        min-idle: 0
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+
+  devtools:
+    restart:
+      enabled: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.nileonx.leetchat_springboot.entities
+
+# JWT 密钥（建议使用强随机字符串）
+jwt:
+  secret: YourSuperSecretKeyForJwtSigningAtLeast32Characters
+
+# 阿里云 OSS 配置
+oss:
+  endpoint: oss-cn-beijing.aliyuncs.com
+  accessKeyId: your-access-key-id
+  accessKeySecret: your-access-key-secret
+  bucketName: your-bucket-name
+
+# 阿里灵积 DashScope 配置（可选，用于AI功能）
+dashscope:
+  apiKey: your-dashscope-api-key
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: false
+  defaultCount: true

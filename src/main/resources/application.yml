@@ -1,0 +1,107 @@
+#配置服务器端口
+server:
+  port: 8080
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: ${SSL_KEYSTORE_PASSWORD:}
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
+  banner:
+    charset: UTF-8  # Banner file encoding.
+    location: classpath:banner.txt  # Banner text resource location.
+
+  mail:
+    host: ${MAIL_HOST:smtp.163.com}
+    username: ${MAIL_USERNAME:your-email@example.com}
+    password: ${MAIL_PASSWORD:}
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+
+  #配置数据源
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: ${MYSQL_URL:jdbc:mysql://localhost:3306/discord?useSSL=false&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true}
+      username: ${MYSQL_USERNAME:root}
+      password: ${MYSQL_PASSWORD:}
+      initial-size: 1
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+
+  redis:
+    database: 0
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+    lettuce:
+      pool:
+        min-idle: 0
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+    connect-timeout: 30000ms
+
+  #配置热部署工具
+  devtools:
+    restart:
+      enabled: true
+
+  #配置高swagger，swagger主要是生成文档式接口 ，一般用于mvc中
+  # 本来是默认使用 swagger的，但是只能默认使用 swagger2
+  # 兼容swagger  springboot2.6以上版本需要加入该配置 swagger才能正常运行
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
+#配置mybatis-plus
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.nileonx.leetchat_springboot.entities
+
+
+# JWT 密钥配置
+jwt:
+  secret: ${JWT_SECRET:defaultSecretKeyForDevelopmentPleaseChangeInProduction}
+
+# OSS 配置
+oss:
+  endpoint: ${OSS_ENDPOINT:}
+  accessKeyId: ${OSS_ACCESS_KEY_ID:}
+  accessKeySecret: ${OSS_ACCESS_KEY_SECRET:}
+  bucketName: ${OSS_BUCKET_NAME:}
+
+# 阿里灵积 DashScope 配置
+dashscope:
+  apiKey: ${DASHSCOPE_API_KEY:}
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: false
+  defaultCount: true
