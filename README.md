@@ -1,86 +1,86 @@
-# LeetChat - Real-time Chat Backend
+# LeetChat - 实时聊天后端
 
-A real-time chat backend built with Spring Boot, supporting private messaging, WebSocket communication, file upload, and friend management.
+基于 Spring Boot 构建的实时聊天后端，支持私聊、WebSocket 通信、文件上传和好友管理。
 
 [![Java 8](https://img.shields.io/badge/Java-8-blue)](https://www.java.com)
 [![Spring Boot 2.7.6](https://img.shields.io/badge/Spring%20Boot-2.7.6-green)](https://spring.io/projects/spring-boot)
 [![MySQL 8](https://img.shields.io/badge/MySQL-8-orange)](https://www.mysql.com)
 [![Redis](https://img.shields.io/badge/Redis-Required-red)](https://redis.io)
 
-## Features
+## 功能特性
 
-- **User Authentication**: JWT-based authentication with email verification
-- **Friend System**: Send/receive friend requests, manage friend list
-- **Real-time Messaging**: WebSocket-based private chat with message persistence
-- **Online Status**: Real-time user online/offline status tracking
-- **File Upload**: Support for avatar and file uploads via Aliyun OSS
-- **WebRTC Signaling**: Built-in signaling server for voice/video calls
-- **Sensitive Word Filtering**: Content moderation for chat messages
+- **用户认证**：基于 JWT 的身份验证，支持电子邮件验证
+- **好友系统**：发送/接收好友请求，管理好友列表
+- **实时消息**：基于 WebSocket 的私聊，支持消息持久化
+- **在线状态**：实时用户在线/离线状态追踪
+- **文件上传**：通过阿里云 OSS 支持头像和文件上传
+- **WebRTC 信令**：内置语音/视频通话信令服务器
+- **敏感词过滤**：聊天消息内容审核
 
-## Tech Stack
+## 技术栈
 
-- **Framework**: Spring Boot 2.7.6
-- **Database**: MySQL 8 + MyBatis-Plus 3.5.2
-- **Cache**: Redis
-- **Real-time Communication**: WebSocket (JSR-356)
-- **Authentication**: JWT (JSON Web Token)
-- **File Storage**: Aliyun OSS
-- **API Documentation**: Swagger 2
-- **Build Tool**: Maven
+- **框架**：Spring Boot 2.7.6
+- **数据库**：MySQL 8 + MyBatis-Plus 3.5.2
+- **缓存**：Redis
+- **实时通信**：WebSocket (JSR-356)
+- **身份验证**：JWT (JSON Web Token)
+- **文件存储**：阿里云 OSS
+- **API 文档**：Swagger 2
+- **构建工具**：Maven
 
-## Quick Start
+## 快速开始
 
-### Prerequisites
+### 前置条件
 
-- Java 8 or higher
+- Java 8 或更高版本
 - MySQL 8.0+
 - Redis 5.0+
 - Maven 3.6+
 
-### 1. Clone the Repository
+### 1. 克隆仓库
 
 ```bash
 git clone https://github.com/yourusername/leetchat_springboot.git
 cd leetchat_springboot
 ```
 
-### 2. Database Setup
+### 2. 数据库设置
 
-Create a MySQL database named `discord` (or any name you prefer):
+创建一个名为 `discord` 的 MySQL 数据库（或您偏好的名称）：
 
 ```sql
 CREATE DATABASE discord CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-### 3. Configuration
+### 3. 配置
 
-Copy the example configuration and update with your settings:
+复制示例配置并使用您的设置进行更新：
 
 ```bash
 cp src/main/resources/application-example.yml src/main/resources/application-local.yml
 ```
 
-Edit `application-local.yml` with your actual credentials:
+编辑 `application-local.yml`，包含您的实际凭据：
 
-- MySQL connection settings
-- Redis connection settings
-- Email SMTP settings (for verification codes)
-- Aliyun OSS credentials (for file upload)
-- JWT secret key
+- MySQL 连接设置
+- Redis 连接设置
+- 电子邮件 SMTP 设置（用于验证码）
+- 阿里云 OSS 凭据（用于文件上传）
+- JWT 密钥
 
-### 4. Run the Application
+### 4. 运行应用
 
-#### Option 1: Using Maven
+#### 选项 1：使用 Maven
 
 ```bash
-# Run with local profile
+# 使用 local 配置文件运行
 mvn spring-boot:run -Dspring-boot.run.profiles=local
 
-# Or run directly
+# 或直接运行
 mvn spring-boot:run
 ```
 
-#### Option 2: Using Environment Variables
+#### 选项 2：使用环境变量
 
 ```bash
 export MYSQL_URL=jdbc:mysql://localhost:3306/discord
@@ -98,56 +98,56 @@ export OSS_BUCKET_NAME=your-bucket
 mvn spring-boot:run
 ```
 
-### 5. Access the Application
+### 5. 访问应用
 
-- REST API: `http://localhost:8080`
-- API Documentation: `http://localhost:8080/swagger-ui.html`
+- REST API：`http://localhost:8080`
+- API 文档：`http://localhost:8080/swagger-ui.html`
 
-## API Overview
+## API 概览
 
-### Authentication
+### 身份验证
 
-| Endpoint | Method | Description | Auth Required |
-|----------|--------|-------------|---------------|
-| `/api/login` | POST | User login | No |
-| `/api/register` | POST | User registration | No |
-| `/api/verify-code` | POST | Send email verification code | No |
-| `/api/reset-password` | POST | Reset password | No |
+| 端点 | 方法 | 描述 | 需要认证 |
+|------|------|------|--------|
+| `/api/login` | POST | 用户登录 | 否 |
+| `/api/register` | POST | 用户注册 | 否 |
+| `/api/verify-code` | POST | 发送电子邮件验证码 | 否 |
+| `/api/reset-password` | POST | 重置密码 | 否 |
 
-### User Management
+### 用户管理
 
-| Endpoint | Method | Description | Auth Required |
-|----------|--------|-------------|---------------|
-| `/api/user/info` | GET | Get current user info | Yes |
-| `/api/user/update` | POST | Update user info | Yes |
-| `/api/user/avatar` | POST | Upload avatar | Yes |
+| 端点 | 方法 | 描述 | 需要认证 |
+|------|------|------|--------|
+| `/api/user/info` | GET | 获取当前用户信息 | 是 |
+| `/api/user/update` | POST | 更新用户信息 | 是 |
+| `/api/user/avatar` | POST | 上传头像 | 是 |
 
-### Friend System
+### 好友系统
 
-| Endpoint | Method | Description | Auth Required |
-|----------|--------|-------------|---------------|
-| `/api/friend/list` | GET | Get friend list | Yes |
-| `/api/friend/request` | POST | Send friend request | Yes |
-| `/api/friend/request/list` | GET | Get friend requests | Yes |
-| `/api/friend/accept` | POST | Accept friend request | Yes |
+| 端点 | 方法 | 描述 | 需要认证 |
+|------|------|------|--------|
+| `/api/friend/list` | GET | 获取好友列表 | 是 |
+| `/api/friend/request` | POST | 发送好友请求 | 是 |
+| `/api/friend/request/list` | GET | 获取好友请求 | 是 |
+| `/api/friend/accept` | POST | 接受好友请求 | 是 |
 
-### Messaging
+### 消息
 
-| Endpoint | Method | Description | Auth Required |
-|----------|--------|-------------|---------------|
-| `/api/message/history` | GET | Get chat history | Yes |
-| `/api/message/windows` | GET | Get chat windows | Yes |
+| 端点 | 方法 | 描述 | 需要认证 |
+|------|------|------|--------|
+| `/api/message/history` | GET | 获取聊天历史 | 是 |
+| `/api/message/windows` | GET | 获取聊天窗口 | 是 |
 
-### WebSocket Endpoints
+### WebSocket 端点
 
-| Endpoint | Description |
-|----------|-------------|
-| `ws://localhost:8080/private/{sid}` | Private chat channel |
-| `ws://localhost:8080/status/{uid}` | Online status & signaling channel |
+| 端点 | 描述 |
+|------|------|
+| `ws://localhost:8080/private/{sid}` | 私聊频道 |
+| `ws://localhost:8080/status/{uid}` | 在线状态和信令频道 |
 
-**WebSocket Connection**: Pass JWT token in `Sec-WebSocket-Protocol` header.
+**WebSocket 连接**：在 `Sec-WebSocket-Protocol` 请求头中传递 JWT 令牌。
 
-## Project Structure
+## 项目结构
 
 ```
 leetchat_springboot/
@@ -155,91 +155,91 @@ leetchat_springboot/
 │   ├── main/
 │   │   ├── java/
 │   │   │   └── com/nileonx/leetchat_springboot/
-│   │   │       ├── config/          # Configuration classes
-│   │   │       ├── controller/      # REST controllers
-│   │   │       ├── entities/        # Database entities
-│   │   │       ├── exception/       # Exception handlers
-│   │   │       ├── interceptor/     # JWT interceptors
-│   │   │       ├── mapper/          # MyBatis mappers
-│   │   │       ├── server/          # WebSocket servers
-│   │   │       ├── service/         # Business logic
-│   │   │       ├── utils/           # Utility classes
+│   │   │       ├── config/          # 配置类
+│   │   │       ├── controller/      # REST 控制器
+│   │   │       ├── entities/        # 数据库实体
+│   │   │       ├── exception/       # 异常处理器
+│   │   │       ├── interceptor/     # JWT 拦截器
+│   │   │       ├── mapper/          # MyBatis 映射器
+│   │   │       ├── server/          # WebSocket 服务器
+│   │   │       ├── service/         # 业务逻辑
+│   │   │       ├── utils/           # 工具类
 │   │   │       └── LeetchatSpringbootApplication.java
 │   │   └── resources/
-│   │       ├── application.yml      # Main configuration
-│   │       ├── application-example.yml  # Example config
-│   │       └── mapper/              # MyBatis XML mappers
-│   └── test/                        # Test classes
-├── pom.xml                          # Maven configuration
-└── README.md                        # This file
+│   │       ├── application.yml      # 主配置
+│   │       ├── application-example.yml  # 示例配置
+│   │       └── mapper/              # MyBatis XML 映射文件
+│   └── test/                        # 测试类
+├── pom.xml                          # Maven 配置
+└── README.md                        # 本文件
 ```
 
-## Configuration Reference
+## 配置参考
 
-All sensitive configurations can be set via environment variables:
+所有敏感配置都可以通过环境变量设置：
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `MYSQL_URL` | MySQL JDBC URL | Yes |
-| `MYSQL_USERNAME` | MySQL username | Yes |
-| `MYSQL_PASSWORD` | MySQL password | Yes |
-| `REDIS_HOST` | Redis host | Yes (default: 127.0.0.1) |
-| `REDIS_PORT` | Redis port | Yes (default: 6379) |
-| `REDIS_PASSWORD` | Redis password | No |
-| `JWT_SECRET` | JWT signing key | Yes |
-| `MAIL_HOST` | SMTP host | Yes (default: smtp.163.com) |
-| `MAIL_USERNAME` | SMTP username | Yes |
-| `MAIL_PASSWORD` | SMTP password | Yes |
-| `OSS_ENDPOINT` | Aliyun OSS endpoint | Yes (for file upload) |
-| `OSS_ACCESS_KEY_ID` | OSS Access Key ID | Yes (for file upload) |
-| `OSS_ACCESS_KEY_SECRET` | OSS Access Key Secret | Yes (for file upload) |
-| `OSS_BUCKET_NAME` | OSS bucket name | Yes (for file upload) |
+| 变量 | 描述 | 必需 |
+|------|------|------|
+| `MYSQL_URL` | MySQL JDBC URL | 是 |
+| `MYSQL_USERNAME` | MySQL 用户名 | 是 |
+| `MYSQL_PASSWORD` | MySQL 密码 | 是 |
+| `REDIS_HOST` | Redis 主机 | 是（默认：127.0.0.1） |
+| `REDIS_PORT` | Redis 端口 | 是（默认：6379） |
+| `REDIS_PASSWORD` | Redis 密码 | 否 |
+| `JWT_SECRET` | JWT 签名密钥 | 是 |
+| `MAIL_HOST` | SMTP 主机 | 是（默认：smtp.163.com） |
+| `MAIL_USERNAME` | SMTP 用户名 | 是 |
+| `MAIL_PASSWORD` | SMTP 密码 | 是 |
+| `OSS_ENDPOINT` | 阿里云 OSS 端点 | 是（文件上传） |
+| `OSS_ACCESS_KEY_ID` | OSS 访问密钥 ID | 是（文件上传） |
+| `OSS_ACCESS_KEY_SECRET` | OSS 访问密钥 | 是（文件上传） |
+| `OSS_BUCKET_NAME` | OSS 桶名称 | 是（文件上传） |
 
-## Development
+## 开发
 
-### Building the Project
+### 构建项目
 
 ```bash
-# Compile
+# 编译
 mvn clean compile
 
-# Run tests
+# 运行测试
 mvn test
 
-# Package as JAR
+# 打包成 JAR
 mvn clean package
 
-# Skip tests during build
+# 跳过测试构建
 mvn clean package -DskipTests
 ```
 
-### Running a Single Test
+### 运行单个测试
 
 ```bash
-# Run a specific test class
+# 运行特定测试类
 mvn test -Dtest=ClassName
 
-# Run a specific test method
+# 运行特定测试方法
 mvn test -Dtest=ClassName#methodName
 ```
 
-### Database Schema
+### 数据库模式
 
-The application uses MyBatis-Plus for ORM. Entity classes in `entities/` package define the database schema. Key tables:
+应用程序使用 MyBatis-Plus 作为 ORM。`entities/` 包中的实体类定义数据库模式。关键表：
 
-- `user`: User accounts
-- `friend`: Friend relationships
-- `friend_request`: Pending friend requests
-- `private_server`: Chat sessions
-- `privatemessage`: Chat messages
-- `window`: User chat windows
-- `file`: File metadata
+- `user`：用户账户
+- `friend`：好友关系
+- `friend_request`：待处理的好友请求
+- `private_server`：聊天会话
+- `privatemessage`：聊天消息
+- `window`：用户聊天窗口
+- `file`：文件元数据
 
-## Deployment
+## 部署
 
-### Docker (Optional)
+### Docker（可选）
 
-You can containerize the application:
+您可以将应用程序容器化：
 
 ```dockerfile
 FROM openjdk:8-jdk-alpine
@@ -247,28 +247,28 @@ COPY target/leetchat_springboot-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 ```
 
-### Production Considerations
+### 生产环境考虑事项
 
-1. **Security**: Change the default JWT secret to a strong random string
-2. **Database**: Use connection pooling and configure appropriate pool sizes
-3. **Redis**: Enable persistence and configure appropriate memory limits
-4. **HTTPS**: Configure SSL certificates for secure communication
-5. **CORS**: Configure allowed origins in production
+1. **安全性**：将默认 JWT 密钥更改为强随机字符串
+2. **数据库**：使用连接池并配置适当的池大小
+3. **Redis**：启用持久化并配置适当的内存限制
+4. **HTTPS**：为安全通信配置 SSL 证书
+5. **CORS**：在生产环境中配置允许的源
 
-## Contributing
+## 贡献
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Fork 该仓库
+2. 创建功能分支 (`git checkout -b feature/amazing-feature`)
+3. 提交您的更改 (`git commit -m 'Add amazing feature'`)
+4. 推送到分支 (`git push origin feature/amazing-feature`)
+5. 开启 Pull Request
 
-## License
+## 许可证
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件。
 
-## Acknowledgments
+## 鸣谢
 
-- Built with [Spring Boot](https://spring.io/projects/spring-boot)
-- ORM powered by [MyBatis-Plus](https://baomidou.com/)
-- File storage by [Aliyun OSS](https://www.aliyun.com/product/oss)
+- 采用 [Spring Boot](https://spring.io/projects/spring-boot) 构建
+- ORM 由 [MyBatis-Plus](https://baomidou.com/) 提供支持
+- 文件存储由 [阿里云 OSS](https://www.aliyun.com/product/oss) 提供
